@@ -15,17 +15,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsListViewModel @Inject constructor(private val repository: Repository):ViewModel(){
+class NewsListViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val _dataState: MutableLiveData<DataState<List<Article>>> = MutableLiveData()
     val dataState: LiveData<DataState<List<Article>>> get() = _dataState
 
-    fun downLoadArticles()
-    {
+    fun downLoadArticles() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getNews().onEach { dateState -> _dataState.value = dateState }
                 .launchIn(viewModelScope)
-
         }
     }
 }

@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.flow
 class Repository constructor(
     private val retrofit: Api,
 ) {
-
     suspend fun getNews(): Flow<DataState<List<Article>>> = flow {
         emit(DataState.Loading)
         try {

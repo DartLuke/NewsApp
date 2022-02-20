@@ -22,9 +22,11 @@ class ListNewsFragment : Fragment() {
 
     private val viewModel: NewsListViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
-    private val newsAdapter = NewsAdapter( onTaskClick = {
-        onTaskClick(it)
-    },)
+    private val newsAdapter = NewsAdapter(
+        onTaskClick = {
+            onTaskClick(it)
+        },
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +49,6 @@ class ListNewsFragment : Fragment() {
             addItemDecoration(ItemDecorator(10))
             adapter = newsAdapter
         }
-
     }
 
     private fun setupObservers() {
@@ -57,15 +58,13 @@ class ListNewsFragment : Fragment() {
                     newsAdapter.updateData(dataState.data)
                 }
                 is DataState.Error -> {
-
                     displayError(dataState.exception?.message)
+                    newsAdapter.isLoading(false)
                 }
                 is DataState.Loading -> {
                     newsAdapter.isLoading(true)
-
                 }
             }
-
         }
     }
 
@@ -76,9 +75,9 @@ class ListNewsFragment : Fragment() {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
     }
-    private fun onTaskClick(article: Article)
-    {
-val nav=ListNewsFragmentDirections.actionListNewsFragmentToNewsFragment(article)
+
+    private fun onTaskClick(article: Article) {
+        val nav = ListNewsFragmentDirections.actionListNewsFragmentToNewsFragment(article)
         findNavController().navigate(nav)
     }
 }

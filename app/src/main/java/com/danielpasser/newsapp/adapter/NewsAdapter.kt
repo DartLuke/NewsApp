@@ -8,7 +8,8 @@ import com.danielpasser.newsapp.R
 import com.danielpasser.newsapp.model.Article
 
 
-class NewsAdapter(private val onTaskClick: (Article) -> Unit) : RecyclerView.Adapter<NewsViewHolder>() {
+class NewsAdapter(private val onTaskClick: (Article) -> Unit) :
+    RecyclerView.Adapter<NewsViewHolder>() {
 
     private val articles: ArrayList<Article> = arrayListOf()
     private var isLoading = false;
@@ -24,15 +25,13 @@ class NewsAdapter(private val onTaskClick: (Article) -> Unit) : RecyclerView.Ada
             )
             else -> throw IllegalArgumentException("Invalid ViewType Provided")
         }
-
     }
-
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         when (holder) {
             is NewsViewHolder.ItemViewHolder -> {
                 val article = if (isLoading) articles[position - 1] else articles[position]
-                holder.bind(article,onTaskClick)
+                holder.bind(article, onTaskClick)
             }
         }
     }
@@ -54,8 +53,8 @@ class NewsAdapter(private val onTaskClick: (Article) -> Unit) : RecyclerView.Ada
     }
 
     fun isLoading(isLoading: Boolean) {
-        this.isLoading = true
-        notifyDataSetChanged()
+        this.isLoading = isLoading
+        notifyItemChanged(0)
     }
 
 }
