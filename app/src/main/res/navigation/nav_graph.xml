@@ -20,7 +20,7 @@
         android:id="@+id/SecondFragment"
         android:name="com.danielpasser.newsapp.ui.news.NewsFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_news">
         <argument
             android:name="article"
             app:argType="com.danielpasser.newsapp.model.Article" />
